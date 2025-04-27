@@ -5,7 +5,7 @@ This is a to-do app created using React Native JavaScript. I was creating a diff
 
 I created this to help teach myself React Native framework. 
 
-## Installation:
+## Installation 🛠️:
 Install the files from GitHub, then in the project directory, perform the following commands:
 
 ```
