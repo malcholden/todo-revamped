@@ -30,17 +30,20 @@ export default function App() {
         <View>
           <Image source={happyDog} style={styles.image}/>
         </View>
-        <Text style={styles.h2}>Enter your task</Text>
-        <TextInput
-          id="taskInput"
-          style={styles.input}
-          onChangeText={setTText}
-          value={taskText}
-          placeholder="Today, I would like to..."
-          // onSubmitEditing={()=> console.log("new task: " + newTask)}
-          placeholderTextColor='#7a7a7a'
-        />
-        <Button title="add" onPress={addTask}/>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.h2}>Enter your task</Text>
+          <TextInput
+            id="taskInput"
+            style={styles.input}
+            onChangeText={setTText}
+            value={taskText}
+            placeholder="Today, I would like to..."
+            // onSubmitEditing={()=> console.log("new task: " + newTask)}
+            placeholderTextColor='#7a7a7a'
+          />
+          <Button style={styles.submitBtn} title="add" onPress={addTask}/>
+        </View>
+        
       </ScrollView>
     </SafeAreaView>
 

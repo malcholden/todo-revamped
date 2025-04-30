@@ -51,16 +51,18 @@ export const styles = StyleSheet.create({
         borderColor: '#000000', 
         color:'#000000',
         fontSize: 16,
-        flex: 1
+        flex: 1,
+        
     },
     submitBtn:{
-      flexDirection: "row",
+      // flexDirection: "row",
       marginRight: 10,
       marginLeft: 10,
       borderRadius: 5,
       backgroundColor: '#5ce288',
       padding:10,
-      alignItems:'center'
+      alignItems:'right',
+      flex: 2,
     },
     indivTask:{
       height: 'auto',
