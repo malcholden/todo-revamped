@@ -30,8 +30,9 @@ export default function App() {
         <View>
           <Image source={happyDog} style={styles.image}/>
         </View>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.h2}>Enter your task</Text>
+        <Text style={styles.h2}>Enter your task</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
+          
           <TextInput
             id="taskInput"
             style={styles.input}
@@ -41,7 +42,10 @@ export default function App() {
             // onSubmitEditing={()=> console.log("new task: " + newTask)}
             placeholderTextColor='#7a7a7a'
           />
-          <Button style={styles.submitBtn} title="add" onPress={addTask}/>
+          <View style={styles.submitBtn}>
+            <Button title="add" onPress={addTask}/>
+          </View>
+          
         </View>
         
       </ScrollView>
