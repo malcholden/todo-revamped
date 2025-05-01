@@ -5,6 +5,8 @@ import { Image } from 'expo-image';
 import happyDog from './assets/happy-dog.gif';
 import { ReactNode, useState } from "react";
 import TaskItem from './TaskItem';
+import { Audio } from "expo-av";
+import addedSound from './assets/yes.mp3';
 
 export default function ToDo(){
 
@@ -22,10 +24,10 @@ export default function ToDo(){
     const newTask = {id: Date.now(), text: taskText, completed: false};
     setTask([...tasks, newTask]);
     setTText("")
+    playSound(addedSound);
   }
 
   // deletes task
-
   function deleteTask(id){
     // set tasks to be only the tasks that are not matching that id
     setTask(tasks.filter(task => task.id !== id));
@@ -37,10 +39,23 @@ export default function ToDo(){
     setTask(tasks.map(task => (task.id === id ? { ...task, completed: !task.completed } : task)));
   }
 
+  async function playSound(soundFile) {
+    const { sound } = await Audio.Sound.createAsync(soundFile);
+    await sound.playAsync();
+
+    // Optional: clean up after playback
+    sound.setOnPlaybackStatusUpdate(status => {
+      if (status.didJustFinish) {
+        sound.unloadAsync();
+      }
+    });
+  }
+
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{alignItems: 'center', padding: 20}}>
-        <Text style={styles.title}>To-Do App (Revamped)</Text>
+        <Text style={styles.title}>MY TASKS FOR TODAY</Text>
         <View>
           <Image source={happyDog} style={styles.image}/>
         </View>
