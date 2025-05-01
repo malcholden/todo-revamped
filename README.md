@@ -13,7 +13,7 @@ npm install
 ```
 
 ```
-npx expo install react-dom react-native-web @expo/metro-runtime expo-image
+npx expo install react-dom react-native-web @expo/metro-runtime expo-image expo-av
 ```
 
 ```
