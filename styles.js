@@ -70,7 +70,28 @@ export const styles = StyleSheet.create({
     taskTxt:{
       color: '#000000',
 
-    }
+    },
+    alertBlur: {
+      position: 'absolute', // React Native uses 'absolute', not 'fixed'
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 999, // Ensure it's on top of other content
+    },
+    alertContent: {
+      backgroundColor: 'white',
+      padding: 20,
+      borderRadius: 5,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 10,
+      elevation: 5, // Required for Android shadow
+    },
     
 
 

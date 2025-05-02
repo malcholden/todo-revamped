@@ -1,4 +1,4 @@
-import { Button, TextInput, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { Button, TextInput, SafeAreaView, ScrollView, Text, View, Alert, Platform } from 'react-native';
 import { styles } from './styles';
 import { Image } from 'expo-image';
 import happyDog from './assets/happy-dog.gif';
@@ -9,6 +9,7 @@ import addedSound from './assets/success.mp3';
 import errorSound from './assets/no.mp3';
 import wrapSound from './assets/wrapup.mp3';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AlertBox from './AlertBox';
 
 
 export default function ToDo(){
@@ -43,7 +44,7 @@ export default function ToDo(){
   }, []);
   
 
-
+  const [alertVisible, setAlertVisible] = useState(false);
 
 
 
@@ -60,8 +61,15 @@ export default function ToDo(){
 
   function addTask(){
     if(taskText == "" | taskText == null){
-      alert("Entry invalid: please enter a task");
-      playSound(errorSound);
+      if (Platform.OS === 'web') {
+        playSound(errorSound);
+        window.alert("Entry invalid: please enter a task");
+        
+      } else {
+        playSound(errorSound);
+        Alert.alert("Entry invalid", "Please enter a task.");
+        
+      }
     }else{
       const newTask = {id: Date.now(), text: taskText, completed: false};
       const updatedTasks = [...tasks, newTask];
@@ -74,12 +82,18 @@ export default function ToDo(){
     
   }
 
+
+
+
+
   // wraps up day and clears all that are completed.
   function wrapUp(){
     const updatedTasks = tasks.filter(task=> task.completed == false);
     setTask(updatedTasks);
     storeTasks(updatedTasks);
     playSound(wrapSound);
+    setAlertVisible(true);
+
   }
 
   // deletes task
@@ -127,6 +141,7 @@ export default function ToDo(){
             style={styles.input}
             onChangeText={setTText}
             value={taskText}
+            onSubmitEditing={addTask}
             placeholder="Today, I would like to..."
             placeholderTextColor='#7a7a7a'
           />
@@ -138,6 +153,11 @@ export default function ToDo(){
         <View style={styles.submitBtn}>
             <Button title="wrap-up" color='#02B11C' onPress={wrapUp}/>
           </View>
+        <AlertBox
+          visible={alertVisible}
+          message="Congratulaitons you got the alert to work"
+          onClose={()=>setAlertVisible(false)}
+        />
     {tasks.map(task => (
         <TaskItem
           key={task.id}
