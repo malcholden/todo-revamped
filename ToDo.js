@@ -136,7 +136,7 @@ export default function ToDo(){
           
         </View>
         <View style={styles.submitBtn}>
-            <Button title="wrap-up" onPress={wrapUp}/>
+            <Button title="wrap-up" color='#02B11C' onPress={wrapUp}/>
           </View>
     {tasks.map(task => (
         <TaskItem
