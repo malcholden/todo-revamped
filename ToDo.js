@@ -7,6 +7,7 @@ import { ReactNode, useState } from "react";
 import TaskItem from './TaskItem';
 import { Audio } from "expo-av";
 import addedSound from './assets/yes.mp3';
+import errorSound from './assets/no.mp3';
 
 export default function ToDo(){
 
@@ -20,12 +21,22 @@ export default function ToDo(){
 
   // creates new task with given tasktext from input. then sets that task into new copied array of tasks, 
   // appeneded to the end. Then clears out input text field.
+
   function addTask(){
-    const newTask = {id: Date.now(), text: taskText, completed: false};
-    setTask([...tasks, newTask]);
-    setTText("")
-    playSound(addedSound);
+    if(taskText == "" | taskText == null){
+      alert("please enter a task");
+      playSound(errorSound);
+    }else{
+      const newTask = {id: Date.now(), text: taskText, completed: false};
+      setTask([...tasks, newTask]);
+      setTText("")
+      playSound(addedSound);
+   
+    }
+    
+    
   }
+
 
   // deletes task
   function deleteTask(id){
