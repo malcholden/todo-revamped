@@ -73,6 +73,12 @@ export default function ToDo(){
     
   }
 
+  // wraps up day and clears all that are completed.
+  function wrapUp(){
+    const updatedTasks = tasks.filter(task=> task.completed == false);
+    setTask(updatedTasks);
+    storeTasks(updatedTasks);
+  }
 
   // deletes task
   function deleteTask(id){
@@ -127,6 +133,9 @@ export default function ToDo(){
           </View>
           
         </View>
+        <View style={styles.submitBtn}>
+            <Button title="wrap-up" onPress={wrapUp}/>
+          </View>
     {tasks.map(task => (
         <TaskItem
           key={task.id}
