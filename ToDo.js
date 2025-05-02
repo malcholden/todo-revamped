@@ -2,13 +2,49 @@ import { Button, TextInput, SafeAreaView, ScrollView, Text, View } from 'react-n
 import { styles } from './styles';
 import { Image } from 'expo-image';
 import happyDog from './assets/happy-dog.gif';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskItem from './TaskItem';
 import { Audio } from "expo-av";
 import addedSound from './assets/yes.mp3';
 import errorSound from './assets/no.mp3';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function ToDo(){
+
+
+  // async stores tasks to storage
+  const storeTasks = async(tasks)=>{
+    try{
+      const jsonValue = JSON.stringify(tasks);
+      await AsyncStorage.setItem('@tasks', jsonValue);
+    }catch (e){
+      console.error('Error saving tasks:', e);
+    }
+  }
+
+  
+
+  // loads tasks from storage
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('@tasks');
+        if (jsonValue != null) {
+          setTask(JSON.parse(jsonValue));
+        }
+      } catch (e) {
+        console.error('Error loading tasks:', e);
+      }
+    };
+  
+    loadTasks();
+  }, []);
+  
+
+
+
+
 
     // use state array of tasks
   const [tasks, setTask] = useState([
@@ -27,7 +63,9 @@ export default function ToDo(){
       playSound(errorSound);
     }else{
       const newTask = {id: Date.now(), text: taskText, completed: false};
-      setTask([...tasks, newTask]);
+      const updatedTasks = [...tasks, newTask];
+      setTask(updatedTasks);
+      storeTasks(updatedTasks);
       setTText("")
       playSound(addedSound);
     }
@@ -39,13 +77,17 @@ export default function ToDo(){
   // deletes task
   function deleteTask(id){
     // set tasks to be only the tasks that are not matching that id
-    setTask(tasks.filter(task => task.id !== id));
+    const updatedTasks = tasks.filter(task => task.id !== id);
+    setTask(updatedTasks);
+    storeTasks(updatedTasks);
   }
 
   function toggleCompleted(id) {
     // goes through the tasks (map). IF the id of the task that is currently read is equal to the id being inputted,
     // create new task that flips the "tasks completed" switch. ELSE--> leave task alone and set task to normal.
-    setTask(tasks.map(task => (task.id === id ? { ...task, completed: !task.completed } : task)));
+    const updatedTasks = tasks.map(task => (task.id === id ? { ...task, completed: !task.completed } : task));
+    setTask(updatedTasks);
+    storeTasks(updatedTasks);
   }
 
   // plays sound 
@@ -78,7 +120,6 @@ export default function ToDo(){
             onChangeText={setTText}
             value={taskText}
             placeholder="Today, I would like to..."
-            // onSubmitEditing={()=> console.log("new task: " + newTask)}
             placeholderTextColor='#7a7a7a'
           />
           <View style={styles.submitBtn}>
@@ -86,7 +127,6 @@ export default function ToDo(){
           </View>
           
         </View>
-    {/* <View> */}
     {tasks.map(task => (
         <TaskItem
           key={task.id}
@@ -95,8 +135,6 @@ export default function ToDo(){
           toggleCompleted={toggleCompleted}
         />
       ))}
-    {/* </View>
-         */}
         
       </ScrollView>
     </SafeAreaView>
