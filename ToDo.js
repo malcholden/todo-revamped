@@ -5,8 +5,9 @@ import happyDog from './assets/happy-dog.gif';
 import { useEffect, useState } from "react";
 import TaskItem from './TaskItem';
 import { Audio } from "expo-av";
-import addedSound from './assets/yes.mp3';
+import addedSound from './assets/success.mp3';
 import errorSound from './assets/no.mp3';
+import wrapSound from './assets/wrapup.mp3';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -73,6 +74,13 @@ export default function ToDo(){
     
   }
 
+  // wraps up day and clears all that are completed.
+  function wrapUp(){
+    const updatedTasks = tasks.filter(task=> task.completed == false);
+    setTask(updatedTasks);
+    storeTasks(updatedTasks);
+    playSound(wrapSound);
+  }
 
   // deletes task
   function deleteTask(id){
@@ -127,6 +135,9 @@ export default function ToDo(){
           </View>
           
         </View>
+        <View style={styles.submitBtn}>
+            <Button title="wrap-up" color='#02B11C' onPress={wrapUp}/>
+          </View>
     {tasks.map(task => (
         <TaskItem
           key={task.id}
