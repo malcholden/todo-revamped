@@ -5,8 +5,9 @@ import happyDog from './assets/happy-dog.gif';
 import { useEffect, useState } from "react";
 import TaskItem from './TaskItem';
 import { Audio } from "expo-av";
-import addedSound from './assets/yes.mp3';
+import addedSound from './assets/success.mp3';
 import errorSound from './assets/no.mp3';
+import wrapSound from './assets/wrapup.mp3';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -78,6 +79,7 @@ export default function ToDo(){
     const updatedTasks = tasks.filter(task=> task.completed == false);
     setTask(updatedTasks);
     storeTasks(updatedTasks);
+    playSound(wrapSound);
   }
 
   // deletes task

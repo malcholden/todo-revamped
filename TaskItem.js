@@ -1,9 +1,9 @@
 import {  View, Text, Button, Pressable} from "react-native";
 import { Audio } from "expo-av";
 import React, { useState } from "react";
-import doneSound from './assets/success.mp3'
+import doneSound from './assets/check.mp3'
 import delSound from './assets/no.mp3'
-import addedSound from './assets/yes.mp3';
+import addedSound from './assets/success.mp3';
 
 // This is the individual task item that is created when a new task is submitted. 
 export default function TaskItem({task, deleteTask, toggleCompleted}){
