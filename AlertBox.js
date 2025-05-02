@@ -8,7 +8,6 @@ import { styles } from './styles';
 
 
 export default function AlertBox({visible, message, onClose}){
-    console.log("f");
     return(
 
         <Modal 
