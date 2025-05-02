@@ -1,6 +1,6 @@
 import {  View, Text, Button, Pressable} from "react-native";
 import { Audio } from "expo-av";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import doneSound from './assets/success.mp3'
 import delSound from './assets/no.mp3'
 import addedSound from './assets/yes.mp3';

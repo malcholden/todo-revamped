@@ -1,9 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, TextInput, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, TextInput, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { styles } from './styles';
 import { Image } from 'expo-image';
 import happyDog from './assets/happy-dog.gif';
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import TaskItem from './TaskItem';
 import { Audio } from "expo-av";
 import addedSound from './assets/yes.mp3';
@@ -20,18 +19,17 @@ export default function ToDo(){
   const [taskText, setTText] = useState('');
 
   // creates new task with given tasktext from input. then sets that task into new copied array of tasks, 
-  // appeneded to the end. Then clears out input text field.
+  // appeneded to the end. Then clears out input text field. Only does this if valid entry. otherwise, alert.
 
   function addTask(){
     if(taskText == "" | taskText == null){
-      alert("please enter a task");
+      alert("Entry invalid: please enter a task");
       playSound(errorSound);
     }else{
       const newTask = {id: Date.now(), text: taskText, completed: false};
       setTask([...tasks, newTask]);
       setTText("")
       playSound(addedSound);
-   
     }
     
     
@@ -50,11 +48,12 @@ export default function ToDo(){
     setTask(tasks.map(task => (task.id === id ? { ...task, completed: !task.completed } : task)));
   }
 
+  // plays sound 
   async function playSound(soundFile) {
     const { sound } = await Audio.Sound.createAsync(soundFile);
     await sound.playAsync();
 
-    // Optional: clean up after playback
+    // clean up after playback
     sound.setOnPlaybackStatusUpdate(status => {
       if (status.didJustFinish) {
         sound.unloadAsync();
