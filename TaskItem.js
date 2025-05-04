@@ -6,7 +6,7 @@ import delSound from './assets/no.mp3'
 import addedSound from './assets/success.mp3';
 
 // This is the individual task item that is created when a new task is submitted. 
-export default function TaskItem({task, deleteTask, toggleCompleted}){
+export default function TaskItem({task, deleteTask, toggleCompleted, totalCompletedTasks, setTotalCompletedTasks}){
 
     // plays sound
     async function playSound(soundFile) {
@@ -28,6 +28,7 @@ export default function TaskItem({task, deleteTask, toggleCompleted}){
     function done(){
         toggleCompleted(task.id);
         playSound(task.completed ? addedSound : doneSound);
+        setTotalCompletedTasks(task.completed ? (prev=> prev-1) : (prev=>prev+1));
         setItemColor(task.completed ? '#fcf4a4':'#f9bab9');
         
     }

@@ -27,31 +27,12 @@ export default function ToDo(){
 
  
  // My task stats counters 
-  const [totalNumTasks, setTotalNumTasks] = useState(0);
+
   const [totalDailyTasks, setTotalDailyTasks] = useState(0);
   const [totalCompletedTasks, setTotalCompletedTasks] = useState(0);
   const [totalLeftOverTasks, setTotalLeftOverTasks] = useState(0);
 
-  // loads counters from storage
-  useEffect(()=>{
-
-    const loadCounters = async () => {
-      try{
-        const totalNum = await AsyncStorage.getItem('@totalNumTasks');
-        const totalDaily = await AsyncStorage.getItem('@totalDailyTasks');
-        const totalComp = await AsyncStorage.getItem('@totalCompletedTasks');
-        const totalLeft = await AsyncStorage.getItem('@totalLeftOverTasks');
-
-        if(totalNum!=null) setTotalNumTasks(parseInt(totalNum));
-        if(totalComp!=null) setTotalCompletedTasks(parseInt(totalComp));
-        if(totalDaily!=null) setTotalDailyTasks(parseInt(totalDaily));
-        if(totalLeft!=null) setTotalLeftOverTasks(parseInt(totalLeft));
-
-      }catch(e){
-        console.error('Error loading my counters: ',e)
-      }
-    }
-  })
+ 
 
 
   // initializes tasks from storage
@@ -70,22 +51,7 @@ export default function ToDo(){
     loadCounters();
   }, []);
   
-  // store updated counters when changed
-  useEffect(() => {
-    AsyncStorage.setItem('@totalNumTasks', totalNumTasks.toString());
-  }, [totalNumTasks]);
-  
-  useEffect(() => {
-    AsyncStorage.setItem('@totalDailyTasks', totalDailyTasks.toString());
-  }, [totalDailyTasks]);
 
-  useEffect(() => {
-    AsyncStorage.setItem('@totalCompletedTasks', totalCompletedTasks.toString());
-  }, [totalCompletedTasks]);
-
-  useEffect(() => {
-    AsyncStorage.setItem('@totalLeftOverTasks', totalLeftOverTasks.toString());
-  }, [totalLeftOverTasks]);
   
 
   // modal visibility
@@ -122,8 +88,6 @@ export default function ToDo(){
       storeTasks(updatedTasks);
       setTText("")
       playSound(addedSound);
-      // setTotalLeftOverTasks(prev=>prev+1);
-      setTotalNumTasks(prev=>prev+1);
       setTotalDailyTasks(prev=>prev+1);
     }
     
@@ -139,7 +103,7 @@ export default function ToDo(){
     let x = tasks.length;
     const updatedTasks = tasks.filter(task=> task.completed == false);
     let y = updatedTasks.length;
-    setTotalCompletedTasks(x-y);
+    setTotalLeftOverTasks(y);
     setTask(updatedTasks);
     storeTasks(updatedTasks);
     playSound(wrapSound);
@@ -150,6 +114,7 @@ export default function ToDo(){
   function wrapUpClose(){
     setAlertVisible(false)
     setTotalDailyTasks(0);
+    setTotalCompletedTasks(0);
     setTotalLeftOverTasks(0);
   }
 
@@ -159,8 +124,7 @@ export default function ToDo(){
     const updatedTasks = tasks.filter(task => task.id !== id);
     setTask(updatedTasks);
     storeTasks(updatedTasks);
-    setTotalNumTasks(prev=>prev-1);
-    
+    setTotalDailyTasks(prev=>prev-1);
   }
 
   function toggleCompleted(id) {
@@ -214,11 +178,11 @@ export default function ToDo(){
           </View>
         <AlertBox
           visible={alertVisible}
-          message={"Congratulaitons you started "+totalDailyTasks+" tasks today. You have "+totalCompletedTasks+" left over."}
+          message={"Congratulations you added "+totalDailyTasks+" new task(s) today. You completed "+totalCompletedTasks+" task(s). You have "+totalLeftOverTasks+" task(s) left."}
           onClose={()=>wrapUpClose()}
         />
     {tasks.map(task => (
-        <TaskItem
+        <TaskItem totalCompletedTasks={totalCompletedTasks} setTotalCompletedTasks={setTotalCompletedTasks}
           key={task.id}
           task={task}
           deleteTask={deleteTask}
