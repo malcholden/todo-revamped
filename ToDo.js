@@ -156,7 +156,7 @@ export default function ToDo(){
         <View>
           <Image source={happyDog} style={styles.image}/>
         </View>
-        <Text style={styles.h2}>Enter your task</Text>
+        <Text style={styles.h2}>Enter your task 💡</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
           
           <TextInput
@@ -174,7 +174,7 @@ export default function ToDo(){
           
         </View>
         <View style={styles.submitBtn}>
-            <Button title="wrap-up" color='#02B11C' onPress={wrapUp}/>
+            <Button title=" 🛏️ wrap-up" color='#02B11C' onPress={wrapUp}/>
           </View>
         <AlertBox
           visible={alertVisible}

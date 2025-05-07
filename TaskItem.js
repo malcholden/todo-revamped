@@ -39,15 +39,27 @@ export default function TaskItem({task, deleteTask, toggleCompleted, totalComple
     }
     return(
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5,
-        marginBottom: 5,
-        padding: 10, flex: 2, backgroundColor: task.completed ? '#f9bab9':'#fcf4a4' }}>
-        <Pressable onPress={() => done() }>
-        <Text style={{ fontSize: 18 }}>
-          {task.completed ? '✅' : '⬜'}
-        </Text>
-      </Pressable>
+        marginBottom: 5, borderRadius:12,shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        maxWidth:300,
+        flexWrap: 'wrap',
+        padding: 10, flex: 2, backgroundColor: task.completed ? '#f9bab9':'white' }}>
+          <View style={{flex: 1, flexDirection: 'column', alignContent: "flex-start"}}>
+            <Pressable onPress={() => done() }>
+              <Text style={{ fontSize: 18 }}>
+                {task.completed ? '✅' : '⬜'}
+              </Text>
+            </Pressable>
+          </View>
+          <View style={{flex: 6, flexDirection: 'column'}}>
             <Text style={{textDecorationLine: task.completed ? 'line-through' : 'none'}}>   {task.text}     </Text>
-            <Button title="X" onPress={() =>nvm()}/>
+          </View>
+          <View style={{flex: 1, flexDirection: 'column', alignContent:'flex-end'}}>
+          <Button title="X" onPress={() =>nvm()}/>
+          </View>
+          
         </View>
 
 

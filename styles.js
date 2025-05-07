@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 export const styles = StyleSheet.create({
     container:{
       flex: 1,
-
+      backgroundColor: '#E9E9E9',
     },
     title:{
       color: '#000000',
@@ -42,15 +42,21 @@ export const styles = StyleSheet.create({
       color: '#000000',
     },
     input:{
-        height: 40,
-        marginBottom: 20,
-        marginTop: 20,
-        borderWidth: 1,
-        padding: 10,
-        borderColor: '#000000', 
-        color:'#000000',
-        fontSize: 16,
-        flex: 1,
+      height: 50,
+      marginBottom: 20,
+      marginTop: 20,
+      borderWidth: 1,
+      padding: 10,
+      borderColor: 'white', 
+      color:'#000000',
+      fontSize: 16,
+      borderRadius:12,
+      flex: 1,
+      backgroundColor: 'white',
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
         
     },
     submitBtn:{
@@ -60,8 +66,12 @@ export const styles = StyleSheet.create({
     indivTask:{
       height: 'auto',
       width: 300,
-      backgroundColor: '#fcf4a4',
+      backgroundColor: 'white',
       borderRadius: 18,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
       marginTop: 5,
       marginBottom: 5,
       padding: 20,
