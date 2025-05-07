@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 export const styles = StyleSheet.create({
     container:{
       flex: 1,
-
+      backgroundColor: '#E9E9E9',
     },
     title:{
       color: '#000000',
@@ -42,45 +42,50 @@ export const styles = StyleSheet.create({
       color: '#000000',
     },
     input:{
-        height: 40,
-        marginBottom: 20,
-        marginTop: 20,
-        borderWidth: 1,
-        padding: 10,
-        borderColor: '#000000', 
-        color:'#000000',
-        fontSize: 16,
-        flex: 1,
+      height: 50,
+      marginBottom: 20,
+      marginTop: 20,
+      borderWidth: 1,
+      padding: 10,
+      borderColor: 'white', 
+      color:'#000000',
+      fontSize: 16,
+      borderRadius:12,
+      flex: 1,
+      backgroundColor: 'white',
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
         
     },
     submitBtn:{
-      borderRadius: 5,
-      padding:10,
-    },
-    indivTask:{
-      height: 'auto',
-      width: 300,
-      backgroundColor: '#fcf4a4',
-      borderRadius: 18,
-      marginTop: 5,
-      marginBottom: 5,
-      padding: 20,
+      borderRadius: 12,
+      marginBottom: 20,
+      padding:5,
+      flex: 0.25,
+      backgroundColor: '#0D74FB',
+      shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
 
     },
+    
     taskTxt:{
       color: '#000000',
 
     },
     alertBlur: {
-      position: 'absolute', // React Native uses 'absolute', not 'fixed'
+      position: 'absolute', 
       top: 0,
       left: 0,
       width: '100%',
       height: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', 
       justifyContent: 'center',
       alignItems: 'center',
-      zIndex: 999, // Ensure it's on top of other content
+      zIndex: 999, 
     },
     alertContent: {
       backgroundColor: 'white',
@@ -90,7 +95,7 @@ export const styles = StyleSheet.create({
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,
       shadowRadius: 10,
-      elevation: 5, // Required for Android shadow
+      elevation: 5,
     },
     
 

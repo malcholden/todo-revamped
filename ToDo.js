@@ -1,4 +1,4 @@
-import { Button, TextInput, SafeAreaView, ScrollView, Text, View, Alert, Platform } from 'react-native';
+import { Button, TextInput, SafeAreaView, ScrollView, Text, View, Alert, Platform, Pressable } from 'react-native';
 import { styles } from './styles';
 import { Image } from 'expo-image';
 import happyDog from './assets/happy-dog.gif';
@@ -10,10 +10,9 @@ import errorSound from './assets/no.mp3';
 import wrapSound from './assets/wrapup.mp3';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AlertBox from './AlertBox';
-
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function ToDo(){
-
 
   // async stores tasks to storage
   const storeTasks = async(tasks)=>{
@@ -24,16 +23,14 @@ export default function ToDo(){
       console.error('Error saving tasks:', e);
     }
   }
-
  
- // My task stats counters 
+  // My task stats counters 
 
   const [totalDailyTasks, setTotalDailyTasks] = useState(0);
   const [totalCompletedTasks, setTotalCompletedTasks] = useState(0);
   const [totalLeftOverTasks, setTotalLeftOverTasks] = useState(0);
 
  
-
 
   // initializes tasks from storage
   useEffect(() => {
@@ -53,10 +50,8 @@ export default function ToDo(){
   
 
   
-
   // modal visibility
   const [alertVisible, setAlertVisible] = useState(false);
-
 
 
     // use state array of tasks
@@ -69,7 +64,6 @@ export default function ToDo(){
 
   // creates new task with given tasktext from input. then sets that task into new copied array of tasks, 
   // appeneded to the end. Then clears out input text field. Only does this if valid entry. otherwise, alert.
-
   function addTask(){
     if(taskText == "" | taskText == null){
       if (Platform.OS === 'web') {
@@ -90,11 +84,7 @@ export default function ToDo(){
       playSound(addedSound);
       setTotalDailyTasks(prev=>prev+1);
     }
-    
-    
   }
-
-
 
 
 
@@ -152,13 +142,13 @@ export default function ToDo(){
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{alignItems: 'center', padding: 20}}>
-        <Text style={styles.title}>MY TASKS FOR TODAY</Text>
+        <Text style={styles.title}>My Tasks for Today 📓</Text>
         <View>
           <Image source={happyDog} style={styles.image}/>
         </View>
-        <Text style={styles.h2}>Enter your task</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
-          
+        <Text style={styles.h2}>Enter your task 💡</Text>
+        <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', marginTop: 10}}>
+          <View style={{flex: 5, flexDirection: 'column', alignContent:"flex-start"}}>
           <TextInput
             id="taskInput"
             style={styles.input}
@@ -168,27 +158,39 @@ export default function ToDo(){
             placeholder="Today, I would like to..."
             placeholderTextColor='#7a7a7a'
           />
-          <View style={styles.submitBtn}>
-            <Button title="add" onPress={addTask}/>
+          </View>
+          <View style={{flex: 1, flexDirection: 'column', alignContent:'flex-end'}}>
+            <Pressable  onPress={()=>addTask()}>
+              <View styles={{shadowColor: '#000',
+                          shadowOffset: { width: 0, height: 2 },
+                          shadowOpacity: 0.25,
+                          shadowRadius: 3.84,}}>
+                <MaterialIcons name="add-circle" size={48} color="#0D74FB" />
+              </View>
+            </Pressable>
           </View>
           
         </View>
+
         <View style={styles.submitBtn}>
-            <Button title="wrap-up" color='#02B11C' onPress={wrapUp}/>
-          </View>
+            <Button title=" 🛏️ wrap-up" color='white' onPress={wrapUp}/>
+
+        </View>
+
         <AlertBox
           visible={alertVisible}
           message={"Congratulations you added "+totalDailyTasks+" new task(s) today. You completed "+totalCompletedTasks+" task(s). You have "+totalLeftOverTasks+" task(s) left."}
           onClose={()=>wrapUpClose()}
         />
-    {tasks.map(task => (
-        <TaskItem totalCompletedTasks={totalCompletedTasks} setTotalCompletedTasks={setTotalCompletedTasks}
-          key={task.id}
-          task={task}
-          deleteTask={deleteTask}
-          toggleCompleted={toggleCompleted}
-        />
-      ))}
+
+      {tasks.map(task => (
+          <TaskItem totalCompletedTasks={totalCompletedTasks} setTotalCompletedTasks={setTotalCompletedTasks}
+            key={task.id}
+            task={task}
+            deleteTask={deleteTask}
+            toggleCompleted={toggleCompleted}
+          />
+        ))}
         
       </ScrollView>
     </SafeAreaView>
