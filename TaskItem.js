@@ -4,27 +4,29 @@ import React, { useState } from "react";
 import doneSound from './assets/check.mp3'
 import delSound from './assets/no.mp3'
 import addedSound from './assets/success.mp3';
-
+import AntDesign from '@expo/vector-icons/AntDesign';
 // This is the individual task item that is created when a new task is submitted. 
-export default function TaskItem({task, deleteTask, toggleCompleted, totalCompletedTasks, setTotalCompletedTasks}){
+export default function TaskItem({task, deleteTask, toggleCompleted, setTotalCompletedTasks}){
+
 
     // plays sound
     async function playSound(soundFile) {
         const { sound } = await Audio.Sound.createAsync(soundFile);
         await sound.playAsync();
     
-        // Optional: clean up after playback
+        // clean up after playback
         sound.setOnPlaybackStatusUpdate(status => {
           if (status.didJustFinish) {
             sound.unloadAsync();
           }
         });
-      }
+    }
 
-    const [itemColor, setItemColor] = useState('#fcf4a4')
+    // itemColor variable
+    const [itemColor, setItemColor] = useState('#fcf4a4');
 
     
-      // when task has been completed: handles sound, color, function,etc.
+    // when task has been completed: handles sound, color, function,etc.
     function done(){
         toggleCompleted(task.id);
         playSound(task.completed ? addedSound : doneSound);
@@ -32,11 +34,13 @@ export default function TaskItem({task, deleteTask, toggleCompleted, totalComple
         setItemColor(task.completed ? '#fcf4a4':'#f9bab9');
         
     }
+
     // when task has been deletd: handles sound, function, etc.
     function nvm(){
         deleteTask(task.id);
         playSound(delSound);
     }
+
     return(
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5,
         marginBottom: 5, borderRadius:12,shadowColor: '#000',
@@ -46,7 +50,8 @@ export default function TaskItem({task, deleteTask, toggleCompleted, totalComple
         maxWidth:300,
         flexWrap: 'wrap',
         padding: 10, flex: 2, backgroundColor: task.completed ? '#f9bab9':'white' }}>
-          <View style={{flex: 1, flexDirection: 'column', alignContent: "flex-start"}}>
+
+          <View style={{flex: 1, flexDirection: 'column', alignContent:"flex-start"}}>
             <Pressable onPress={() => done() }>
               <Text style={{ fontSize: 18 }}>
                 {task.completed ? '✅' : '⬜'}
@@ -57,16 +62,12 @@ export default function TaskItem({task, deleteTask, toggleCompleted, totalComple
             <Text style={{textDecorationLine: task.completed ? 'line-through' : 'none'}}>   {task.text}     </Text>
           </View>
           <View style={{flex: 1, flexDirection: 'column', alignContent:'flex-end'}}>
-          <Button title="X" onPress={() =>nvm()}/>
+            <Pressable onPress={() =>nvm()}>
+              <AntDesign name="delete" size={24} color="#F67B7B" />
+            </Pressable>
           </View>
-          
+  
         </View>
-
-
-
     );
-
-
-
 }
 

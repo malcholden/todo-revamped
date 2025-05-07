@@ -1,9 +1,5 @@
-import {  View, Text, Button, Modal, ModalProps, Pressable} from "react-native";
-import { Audio } from "expo-av";
-import React, { useState } from "react";
-import doneSound from './assets/check.mp3'
-import delSound from './assets/no.mp3'
-import addedSound from './assets/success.mp3';
+import {  View, Text, Button, Modal} from "react-native";
+import React from "react";
 import { styles } from './styles';
 
 

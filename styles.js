@@ -60,37 +60,32 @@ export const styles = StyleSheet.create({
         
     },
     submitBtn:{
-      borderRadius: 5,
-      padding:10,
-    },
-    indivTask:{
-      height: 'auto',
-      width: 300,
-      backgroundColor: 'white',
-      borderRadius: 18,
+      borderRadius: 12,
+      marginBottom: 20,
+      padding:5,
+      flex: 0.25,
+      backgroundColor: '#0D74FB',
       shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      marginTop: 5,
-      marginBottom: 5,
-      padding: 20,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
 
     },
+    
     taskTxt:{
       color: '#000000',
 
     },
     alertBlur: {
-      position: 'absolute', // React Native uses 'absolute', not 'fixed'
+      position: 'absolute', 
       top: 0,
       left: 0,
       width: '100%',
       height: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', 
       justifyContent: 'center',
       alignItems: 'center',
-      zIndex: 999, // Ensure it's on top of other content
+      zIndex: 999, 
     },
     alertContent: {
       backgroundColor: 'white',
@@ -100,7 +95,7 @@ export const styles = StyleSheet.create({
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,
       shadowRadius: 10,
-      elevation: 5, // Required for Android shadow
+      elevation: 5,
     },
     
 
