@@ -20,3 +20,9 @@ npx expo install react-dom react-native-web @expo/metro-runtime expo-image expo-
 npx expo start
 ```
 
+## UI Design 🎨
+
+![Home Screen](screencap01.png)
+![Add Task](screencap02.png)
+![pic3](screencap03.png)
+![pic4](screencap04.png)
